@@ -1,0 +1,31 @@
+{% extends 'index2.html' %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+
+    {% if form1.errors and form2.errors %}
+       <div class="alert alert-danger" role="alert">
+        Error!
+       </div>
+    {% endif %}
+
+    <h1> Registro de Jugadores</h1>
+
+    <form action=" {% url 'mi_jugador' %} " method="POST">
+            {% csrf_token %}
+            {% if mensaje %}
+                <div class="alert alert-success" role="alert">
+                   Registrado!
+                </div>
+            {% endif %}
+
+            {{ form1|crispy }}
+            {{ form2|crispy }}
+
+            <br>
+
+            <button type="submit" class="btn btn-outline-light btn-lg m-1">Enviar</button>
+
+    </form>
+
+{% endblock %}

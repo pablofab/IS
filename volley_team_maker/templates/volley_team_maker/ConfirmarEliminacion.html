@@ -1,0 +1,28 @@
+{% extends 'index2.html' %}
+{% load crispy_forms_filters %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<h1>¿Estás seguro de querer eliminar al jugador "{{ jugador.name }}"?</h1>
+
+<br><br>
+
+
+    <form action="{% url 'eliminarJugador' jugador.pk %}" method="POST">
+        {% csrf_token %}
+        <p class="btn-lg m-2">
+            <input class="btn btn-danger btn-lg" type="submit" value="Sí"/> 
+            <a class="btn btn-outline-light btn-lg m-2" role="button" rel="nofollow"  href="{% url 'listaJugadores' %}">Cancelar</a>
+        </p>
+
+        {{ form|crispy }}
+
+    </form>
+
+
+
+{% endblock %}
+
+

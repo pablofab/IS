@@ -1,0 +1,45 @@
+{% extends 'index2.html' %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+
+    {% if form.errors %}
+       <div class="alert alert-danger" role="alert">
+        Error!
+       </div>
+    {% endif %}
+
+    <h1> {{ jugador.name }}</h1>
+    
+    <table class="table text-white">
+        <thead> 
+          <tr>
+            <th scope="col">Género</th>
+            <th scope="col">Altura</th>
+            <th scope="col">Posición 1</th>
+            <th scope="col">Posición 2</th>
+            <th scope="col">Saque</th>
+            <th scope="col">Recepción</th>
+            <th scope="col">Dedos</th>
+            <th scope="col">Dedos doble</th>
+            <th scope="col">Ataque</th>
+            <th scope="col"> </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row"> {{ jugador.genero }}</th>
+            <td> {{ stats.height }}</td>
+            <td> {{ stats.position1 }}</td>
+            <td> {{ stats.position2 }}</td>
+            <td> {{ stats.saque }}</td>    
+            <td> {{ stats.recepcion }}</td>  
+            <td> {{ stats.dedos }}</td>  
+            <td> {{ stats.dedos_doble }}</td>  
+            <td> {{ stats.ataque }}</td>   
+            <td> <img src="{{ stats.foto.url }}" class="img-responsive" style="width: 100%; float: left; margin-right: 10px;" /> </td>
+          </tr>
+        </tbody>
+      </table>
+
+{% endblock %}

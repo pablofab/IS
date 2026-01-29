@@ -1,0 +1,73 @@
+{% extends "index2.html" %}
+{% load crispy_forms_filters %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<h1> Lista de equipos registrados </h1>
+{% if user.is_authenticated and user.role == 1 %} 
+<a class="btn btn-outline-info" href="{% url 'equipo_registrar' %}">Registrar nuevo Equipo</a>
+
+
+
+
+
+
+<table class="table text-white">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Max numero jugadores </th>
+      <th scope="col">Numero Jugadores</th>
+      <th scope="col">Ver Jugadores</th>
+      <th scope="col">Agregar Jugador</th>
+      <th scope="col">Estadisticas Equipo</th>
+      <th scope="col">Editar Equipo</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for equipo in equipos %}
+    <tr>
+      <th scope="row"> {{ equipo.id }}</th>
+      <td> {{ equipo.name }}</td>
+      <td> {{ equipo.max_num_players }}</td>
+      <td> {{ equipo.num_players }}</td>
+      <td> <a class="btn btn-outline-light" href="{% url 'equipo' equipo.id %}"> Ver Jugadores</a></td>
+      <td> <a class="btn btn-outline-light" href="{% url 'equipo_jugadores_disponibles' equipo.id %}"> Agregar Jugador</a></td>
+      <td> <a class="btn btn-outline-light" href="{% url 'equipo_estadisticas' equipo.id %}">Estadisticas Equipo</a></td>
+      <td> <a class="btn btn-outline-light" href="{% url 'equipo_editar' equipo.id %}">Editar Equipo</a></td>
+
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<table class="table text-white">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Max numero jugadores </th>
+      <th scope="col">Numero Jugadores</th>
+      <th scope="col">Ver Jugadores</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for equipo in equipos %}
+    <tr>
+      <th scope="row"> {{ equipo.id }}</th>
+      <td> {{ equipo.name }}</td>
+      <td> {{ equipo.max_num_players }}</td>
+      <td> {{ equipo.num_players }}</td>
+      <td> <a class="btn btn-outline-light" href="{% url 'equipo' equipo.id %}"> Ver Jugadores</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+{% endblock %}
+
+
+

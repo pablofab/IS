@@ -1,0 +1,36 @@
+{% extends "index2.html" %}
+
+{% block content %}
+
+<h1> Jugadores disponibles para equipo: {{equipo.name}}</h1>
+
+
+<table class="table text-white">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Rut</th>
+      <th scope="col">Género</th>
+      <th scope="col">Agregar al equipo</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for jugador in jugadores %}
+    <tr>
+      <th scope="row"> {{ jugador.pk }}</th>
+      <td> {{ jugador.name }}</td>
+      <td> {{ jugador.rut }}</td>
+      <td> {{ jugador.genero }}</td>
+      <td> <a class="btn btn-outline-light"  href="{% url 'equipo_agregar_jugador' id_equipo=equipo.pk id_jugador=jugador.pk %}"> Agregar al equipo</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
+
+
+
+
+

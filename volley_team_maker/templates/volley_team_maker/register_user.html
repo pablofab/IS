@@ -1,0 +1,49 @@
+{% extends "volley_team_maker/index2.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+
+<!DOCTYPE html>
+     <html lang="en">
+     <head>
+        <meta charset="UTF-8">
+        <title>Registro</title>
+     </head>
+     <body>
+        <div>
+        <h1> Registrarse </h1>
+      
+        <form method="post" action="{% url 'register_user' %}">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col">
+
+                    <h4> Registrar Perfil Usuario </h4>
+                    <div class="form-group">
+                        <label for="nombre_usuario">Nombre</label>
+                        <input type="text" class="form-control" id=nombre_usuario name="nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contraseña">Contraseña</label>
+                        <input type="password" class="form-control" id="contraseña" name="contraseña" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="mail">Mail</label>
+                        <input type="email" class="form-control" id="mail" name="mail" required>
+                    </div>
+                </div>
+                <div class="col">
+                <h4> Registrar Perfil Jugador </h4>
+                {{ form1|crispy }}
+                {{ form2|crispy }}
+
+                </div>
+                <button class="btn btn-outline-light btn-lg m-3" type="submit">Crear usuario</button>
+              </div>
+        </form>
+       
+    </div>
+     </body>
+     </html>
+
+{% endblock %}

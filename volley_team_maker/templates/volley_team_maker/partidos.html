@@ -1,0 +1,76 @@
+{% extends "index2.html" %}
+{% load crispy_forms_filters %}
+
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+
+<h1> Lista de partidos </h1>
+
+{% if user.is_authenticated and user.role == 1 %} 
+<form action="{% url 'crearPartido' %}" method="POST">
+  {% csrf_token %}
+  <input class="btn btn-outline-light btn-lg m-3" type="submit" role="button" value="Agregar Partido">
+  {{ form|crispy }}
+</form>
+{% endif %}
+
+{% if user.is_authenticated and user.role == 1 %}
+<table class="table text-white ">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Fecha</th>
+      <th scope="col">Numero Jugadores</th>
+      <th scope="col">Estado</th> 
+      <th scope="col">Ver Equipos</th>
+      <th scope="col">Agregar Equipo</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for partido in partidos %}
+    <tr>
+      <th scope="row"> {{ partido.id }}</th>
+      <td> <a href="{% url 'editarFecha' partido.id %}"> {{ partido.fecha|date:"d M Y" }} </a> </td>
+      <td> <a href="{% url 'editarNumplayers' partido.id %}"> {{ partido.num_players }} </a> </td>
+      <td> <a href="{% url 'editarEstado' partido.id %}"> {{ partido.status }} </a> </td>
+      <td> <a class="btn btn-outline-light" href="{% url 'partido' partido.id %}"> Ver Equipos</a></td>
+      <td> <a class="btn btn-outline-light" href="{% url 'partido_equipos_disponibles' partido.id %}"> Agregar Equipo</a></td>
+
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<table class="table text-white">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Fecha</th>
+      <th scope="col">Max numero jugadores </th>
+      <th scope="col">Numero Jugadores</th>
+      <th scope="col">Estado</th> 
+      <th scope="col">Ver Equipos</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for partido in partidos %}
+    <tr>
+      <th scope="row"> {{ partido.id }}</th>
+      <td> {{ partido.fecha }} </a> </td>
+      <td> {{ partido.num_max_players }}</td>
+      <td> {{ partido.num_players }} </a> </td>
+      <td>  {{ partido.status }} </a> </td>
+      <td> <a class="btn btn-outline-light" href="{% url 'partido' partido.id %}"> Ver Equipos</a></td>
+      {% comment %} <td> <a class="btn btn-outline-light" href="{% url 'view_jugador' jugador.id %}"> Ver </a></td>
+      {% endcomment %}
+
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "index2.html" %}
+
+{% block content %}
+
+<h1> Jugadores del equipo: {{equipo.name}}</h1>
+
+{% if user.is_authenticated and user.role == 1 %}
+<table class="table text-white">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Rut</th>
+      <th scope="col">Género</th>
+      <th scope="col">Eliminar de equipo</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for jugador in jugadores %}
+    <tr>
+      <th scope="row"> {{ jugador.pk }}</th>
+      <td> {{ jugador.name }}</td>
+      <td> {{ jugador.rut }}</td>
+      <td> {{ jugador.genero }}</td>
+      <td> <a class="btn btn-outline-light"  href="{% url 'equipo_remover_jugador' id_equipo=equipo.id id_jugador=jugador.pk %}"> Eliminar de equipo</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<table class="table text-white">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Género</th>
+      <th scope="col">Posición 1</th>
+      <th scope="col">Posición 2</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for jugador in jugadores %}
+    <tr>
+      <th scope="row"> {{ jugador.pk }}</th>
+      <td> {{ jugador.name }}</td>
+      <td> {{ jugador.genero }}</td>
+      <td> {{ jugador.estadisticas_jugador.position1 }}</td>
+      <td> {{ jugador.estadisticas_jugador.position2 }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+{% endblock %}
+
+
+
+

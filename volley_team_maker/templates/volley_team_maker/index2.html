@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                     <div class="alert">
+                      {{message}}
+                    </div>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    <meta charset="UTF-8">
+    <title>Volleyball</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script></head>
+<body>
+<!-- 
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <img src="https://www.freepnglogos.com/uploads/volleyball-png/sports-volley-ball-volleyball-icon-8.png" width="40" height="40" class="rounded">
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'inicio' %}">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href=" {% url 'listaJugadores' %}">Lista jugadores</a> modificable (despues para los admin solo)
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href=" {% url 'mi_jugador' %}">Registrate</a>
+        </li>
+          ---
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        </li>
+      ---
+      </ul>
+      <form class="d-flex" method="POST" action="{% url 'buscarJugador' %}">
+        {% csrf_token %}
+        <input class="form-control me-2" type="search" placeholder="Buscar jugador" aria-label="Search" name="buscarJugador">
+        <button class="btn btn-outline-success" type="submit">Buscar</button>
+      </form>
+    </div>
+  </div>
+</nav>
+-->
+
+<!--Main Navigation-->
+<header>
+  <style>
+    #intro {
+      background-image:url('../../static/assets/fondo.jpg');
+      background-repeat: no-repeat;
+      background-size:cover;    
+    }
+
+    /* Height for devices larger than 576px */
+    @media (min-width: 992px) {
+      #intro {
+        margin-top: -58.59px;
+        height:100vh;
+      }
+    }
+
+    .navbar .nav-link {
+      color: #fff !important;
+    }
+  </style>
+
+  <!-- Navbar -->
+
+  
+  <nav class="navbar navbar-expand-lg navbar-dark d-none d-lg-block" style="z-index: 2000;">
+    <div class="container-fluid">
+      <!-- Navbar brand -->
+      <li class="nav-item">
+        <img src="https://www.freepnglogos.com/uploads/volleyball-png/benefits-playing-club-volleyball-digs-volleyball-club-10.png" width="40" height="40" class="rounded">
+      </li>
+      <div class="collapse navbar-collapse" id="navbarExample01">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item active">
+            <a class="nav-link active" aria-current="page" href="{% url 'inicio' %}">Inicio</a>
+          </li>
+
+          {% if user.is_authenticated and user.role == 1 %}
+          <li class ="nav-item">
+            <a class="nav-link" href="">{{ user.username }}</a>
+          </li>
+          {% else %}
+          <li class ="nav-item">
+            <a class="nav-link" href="{% url 'adminlogin' %}">Admin</a>
+          </li>
+          {% endif %}
+          {% if user.is_authenticated and user.role == 1 %}
+          <li class="nav-item">
+            <a class="nav-link" href=" {% url 'listaJugadores' %}">Jugadores</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'listaJugadores2' %}">Jugadores</a>
+          </li>
+          {% endif %}
+          <li class="nav-item">
+            <a class="nav-link" href=" {% url 'equipos' %}">Equipos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href=" {% url 'partidos' %}">Partidos</a>
+          </li>
+
+          {% if not user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'register_user' %}">Registrarse</a>
+          </li>
+          {% elif user.is_authenticated and user.role == 2 %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'view_jugador' user.jugador.pk %}">Tus estadisticas</a>
+          </li>
+          {% endif %}
+  
+          {% comment %} {% if not user.is_authenticated %}
+
+          {% elif user.is_authenticated and user.role == 1 %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'mi_jugador' %}">Mi perfil</a>
+          </li>
+
+          {% elif user.is_authenticated and user.role == 2 and not user.jugador.pk %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'mi_jugador' %}">Registrar Jugador</a>
+          </li>
+          
+          {% endif %} {% endcomment %}
+          
+          {% if not user.is_authenticated and user.role != 1 %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">Iniciar Sesión</a>
+          </li>
+          {% endif %}
+
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">Cerrar sesión</a>
+          </li>
+          {% endif %}
+             
+
+
+        </ul>
+        <form class="d-flex" method="POST" action="{% url 'buscarJugador' %}">
+          {% csrf_token %}
+          <input class="form-control me-2" type="search" placeholder="Buscar jugador" aria-label="Search" name="buscarJugador">
+          <button class="btn btn-outline-success" type="submit">Buscar</button>
+        </form>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- Navbar -->
+
+
+<div>
+  <div id="intro" class="bg-image shadow-2-strong">
+    <div class="mask" style="background-color: rgba(0, 0, 0, 0.8);">
+      <div class="container d-flex align-items-center justify-content-center text-center h-100">
+        <div class="text-white">
+          <div class="container" style="height:100px"></div>
+          {% block content %}
+
+
+          {% endblock %}
+          <div class="container" style="height:100vh; position:fixed;"></div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+{% extends "volley_team_maker/index2.html" %}
+
+{% block content %}
+<style>
+  td{color: #fff}
+  th{color: #fff}
+</style>
+    <h1>Lista de jugadores</h1>
+
+    {% if mensaje %}
+        <div class="alert alert-success" role="alert">
+            Jugador eliminado exitosamente!
+        </div>
+    {% endif %}
+{% if user.is_authenticated and user.role == 1 %} 
+<a class="btn btn-outline-info" href="{% url 'mi_jugador' %}">Registrar nuevo Jugador</a>
+{% endif %}
+
+
+
+
+{% if user.is_authenticated and user.role == 1 %}  
+<table class="table text-white">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Rut</th>
+      <th scope="col">Género</th>
+      <th scope="col">Equipo</th>
+      <th scope="col">Partido</th>
+      <th scope="col">Ver Jugador</th>
+      <th scope="col">Editar Estadísticas</th>
+      <th scope="col">Editar Equipo/Partido</th>
+      <th scope="col">Eliminar</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for jugador in jugadores %}
+    <tr>
+      <th scope="row"> {{ jugador.pk }}</th>
+      <td> {{ jugador.name }}</td>
+      <td> {{ jugador.rut }}</td>
+      <td> {{ jugador.genero }}</td>
+      <td> {{ jugador.equipo }}</td>
+      <td> {{ jugador.partido }}</td>
+      <td> <a class="btn btn-outline-light" href="{% url 'view_jugador' jugador.pk %}"> Ver </a></td>
+      <td> <a class="btn btn-outline-light" href="{% url 'editarJugadores' jugador.pk %}"> Editar </a></td>
+      <td> <a class="btn btn-outline-light" href="{% url 'editarJugadores2' jugador.pk %}"> Editar </a></td>
+      <td> <a class="btn btn-danger" href="{% url 'eliminarJugador' jugador.pk %}"> Eliminar </a></td>
+
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+{% endblock %}

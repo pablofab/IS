@@ -1,0 +1,43 @@
+{% extends "index2.html" %}
+
+
+{% block content %}
+<style>
+    td{color: #fff}
+    th{color: #fff}
+  </style>
+    <div style="text-align: center;">
+        {% if buscarJugador %}
+            <h1>Buscaste "{{ buscarJugador }}"</h1>
+            <br>
+            <table class="table table-striped">
+
+                <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Rut</th>
+                    <th scope="col">Equipo</th>
+                    <th scope="col">Partido</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for jugador in jugadores %}
+                    <tr>
+                        <td> {{ jugador.name }}</td>
+                        <td> {{ jugador.genero}}</td>
+                        <td> {{ jugador.estadisticas_jugador.position1 }}</td>
+                        <td> {{ jugador.estadisticas_jugador.position2 }}</td>
+                {% endfor %}
+
+                    </tr>
+
+                </tbody>
+            </table>
+        {% else %}
+            <h1>No buscaste nada!</h1>
+        {% endif %}
+    </div>
+
+{% endblock %}
+
+

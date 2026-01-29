@@ -1,0 +1,45 @@
+{% extends "index2.html" %}
+
+{% block content %}
+
+<style>
+    td{color: #fff}
+    th{color: #fff}
+  </style>
+<h1> Estadisticas equipo: {{equipo.name}}</h1>
+
+
+<table class="table table-bordered border-primary">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Rut</th>
+      <th scope="col">Género</th>
+      <th scope="col">Saque</th>
+      <th scope="col">Recepcion</th>
+      <th scope="col">Dedos</th>
+      <th scope="col">Dedos Dobles</th>
+      <th scope="col">Ataque</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for jugador in jugadores %}
+    <tr>
+      <th scope="row"> {{ jugador.pk }}</th>
+      <td> {{ jugador.name }}</td>
+      <td> {{ jugador.rut }}</td>
+      <td> {{ jugador.genero }}</td>
+      <td> {{ jugador.estadisticas_jugador.saque }}</td>
+      <td> {{ jugador.estadisticas_jugador.recepcion }}</td>
+      <td> {{ jugador.estadisticas_jugador.dedos }}</td>
+      <td> {{ jugador.estadisticas_jugador.dedos_doble }}</td>
+      <td> {{ jugador.estadisticas_jugador.ataque }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
+
+

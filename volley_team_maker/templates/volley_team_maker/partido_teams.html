@@ -1,0 +1,53 @@
+{% extends "index2.html" %}
+
+{% block content %}
+
+<h1> Equipos del partido: {{partido.name}}</h1>
+
+{% if user.is_authenticated and user.role == 1 %}
+<table class="table text-white">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Ver Jugadores</th>
+      <th scope="col">Eliminar del partido</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for equipo in equipos %}
+    <tr>
+      <th scope="row"> {{ equipo.id }}</th>
+      <td> {{ equipo.name }}</td>
+      <td> <a class="btn btn-outline-light" href="{% url 'partido_jugadores' equipo.id %}">Ver jugadores</a></td>
+      <td> <a class="btn btn-outline-light"  href="{% url 'partido_remover_equipo' id_partido=partido.id id_equipo=equipo.id %}"> Eliminar del partido</a></td>
+  </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<table class="table text-white">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Ver Jugadores</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for equipo in equipos %}
+    <tr>
+      <th scope="row"> {{ equipo.id }}</th>
+      <td> {{ equipo.name }}</td>
+      <td> <a class="btn btn-outline-light" href="{% url 'partido_jugadores' equipo.id %}">Ver jugadores</a></td>
+  </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+
+
+{% endblock %}
+
+
+

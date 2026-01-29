@@ -1,0 +1,36 @@
+{% extends "volley_team_maker/index2.html" %}
+
+{% block content %}
+<style>
+  td{color: #fff}
+  th{color: #fff}
+</style>
+    <h1>Lista de jugadores</h1>
+
+    {% if mensaje %}
+        <div class="alert alert-success" role="alert">
+            Jugador eliminado exitosamente!
+        </div>
+    {% endif %} 
+<table class="table text-white">
+  <thead>
+    <tr>
+      <th scope="col">Nombre</th>
+      <th scope="col">Género</th>
+      <th scope="col">Posición 1</th>
+      <th scope="col">Posición 2</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for jugador in jugadores %}
+    <tr>
+      <th scope="row"> {{ jugador.name }}</th>
+      <td> {{ jugador.genero }}</td>
+      <td> {{ jugador.estadisticas_jugador.position1 }}</td>
+      <td> {{ jugador.estadisticas_jugador.position2 }}</td>
+
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

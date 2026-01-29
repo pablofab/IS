@@ -1,0 +1,17 @@
+{% extends 'index2.html' %}
+{% load crispy_forms_filters %}
+{% load static %}
+{% block content %}
+
+    <h1 class="mb-3">Creación de Equipos</h1>
+    <h3 class="mb-4">Para tu pichanga</h5>
+    <a class="btn btn-outline-light btn-lg m-3" href="{% url 'listaJugadores' %}" role="button"
+        rel="nofollow">Jugadores</a>
+    <a class="btn btn-outline-light btn-lg m-3" href="{% url 'partidos' %}" 
+        role="button">Partidos</a>
+    <a class="btn btn-outline-light btn-lg m-3" href="{% url 'register_user' %}"
+        role="button">Regístrate</a>
+    
+
+{% endblock %}
+  
